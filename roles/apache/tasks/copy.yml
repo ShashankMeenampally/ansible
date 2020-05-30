@@ -1,0 +1,6 @@
+---
+- name: copy configuration file
+  template:
+    src: "{{src}}"
+    dest: "{{dest}}"
+  notify: restart_service

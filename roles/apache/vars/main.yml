@@ -1,0 +1,7 @@
+---
+# vars file for apache
+httpd: httpd
+firewalld: firewalld
+rule: http
+src: index.html.j2
+dest: /var/www/httpd/index.html

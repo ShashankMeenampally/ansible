@@ -1,0 +1,21 @@
+---
+- name: 
+  hosts:  dev
+  tasks:
+    - name: Create directory
+      file:
+        path: /webdev
+        state: directory
+        mode: 2775
+        group: apache
+    - name: copy content
+      copy:
+        content: "\n Development"
+        dest: /webdev/index.html
+
+    - name: Crete soft link
+      file:
+        src: /webdev
+        dest: /var/www/html/webdev
+        state: link
+        force: yes

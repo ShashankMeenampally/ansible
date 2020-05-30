@@ -1,0 +1,20 @@
+---
+- name: 
+  hosts: dev,test,prod
+  tasks:
+    - name: Install php
+      yum:
+        name: php
+        state: latest
+    - name: Install mariadb
+      yum:
+        name: mariadb
+        state:  latest
+- name:
+  hosts:  dev
+  tasks:
+    - name: update packages on dev
+      yum:
+        name: "*"
+        state:  latest
+        exclude: kernel*

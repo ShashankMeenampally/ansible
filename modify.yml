@@ -1,0 +1,25 @@
+---
+- name:
+  hosts:  dev
+  tasks:
+    - name:
+      copy:
+        content: "\n Dev \n"
+        dest: /etc/issues
+
+- name:
+  hosts:  test
+  tasks:
+    - name:
+      copy:
+        content: "\n Test \n"
+        dest: /etc/issues
+
+
+- name:
+  hosts:  prod
+  tasks:
+    - name:
+      copy:
+        content: "\n Prod \n"
+        dest: /etc/issues

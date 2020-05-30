@@ -1,0 +1,8 @@
+---
+- name: set firewalld rule
+  service: "{{rule}}"
+   zone: public
+   permanent: yes
+   immediate: yes
+   state: enabled
+

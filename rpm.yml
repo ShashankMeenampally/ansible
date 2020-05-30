@@ -1,0 +1,46 @@
+---
+- name:
+  hosts: servera
+  tasks:
+#  - name: get the rpm package facts
+#    package_facts:
+#        manager: "auto"
+#
+#  - name: show them
+#    debug: var=ansible_facts.packages.splunkforwarder
+#   
+
+
+
+
+#- name: debug
+#     debug:
+#        msg: "{{ ansible_hostname }}"
+#     when: packages.splunk is defined
+
+
+
+   - name: check if splunkforwarder is installed on {{ansible_hostname}}
+     package_facts:
+      manager: "auto"
+   - debug:
+      msg: "Package is installed on : '{{ ansible_hostname }}'"
+- import_playbook: splunkpermissions.yml
+  when: "'splunkforwarder' in ansible_facts.packages" 
+
+
+
+
+
+#  - name: Gather package facts
+#    package_facts:
+#     manager: auto
+#  - name:
+#    service:
+#     name: network
+#     status: restarted
+#    when: "'splunkforwarder' not in ansible_facts.packages"
+#
+#   - fail:
+#      msg: "splunk not installed"
+#     when: "'splunkforwarder' not in ansible_facts.packages"

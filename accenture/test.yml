@@ -1,0 +1,19 @@
+---
+  - name: Check RCipher Status 
+    hosts: all
+    tasks:
+      - shell:
+          cmd:  "openssl ciphers -V 'ALL:!ADH:!RC4:+HIGH:+MEDIUM:!LOW:!SSLv2:!SSLv3!EXPORT' | grep RC"
+        register: result
+        failed_when: " 'RC4 Chiper does not exist in server' in result.stderr "
+   #   - debug: var=result.stdout_lines
+      - fail:
+          msg: " RC4 chiper does not exist in server"
+        when: "'Failed' in result.stderr"
+      
+      - debug: msg={{result.stdout_lines}}
+
+
+
+
+

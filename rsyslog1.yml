@@ -1,0 +1,13 @@
+---
+- name:
+  hosts: servera
+  tasks:
+    - name:
+      lineinfile:
+        dest: /root/test
+        regexp: "{{item}}" 
+        state: absent
+        backup: no
+      loop:
+       - "/var/log/secure"
+       - "# The authpriv file has restricted access"

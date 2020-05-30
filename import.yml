@@ -1,0 +1,9 @@
+---
+- name:
+  hosts: servera
+  tasks:
+  - name: Gather package facts
+    package_facts:
+     manager: auto
+
+  - import_playbook: splunkpermissions.yml {{ "'splunkforwarder' not in ansible_facts.packages.splunkforwarder" }}

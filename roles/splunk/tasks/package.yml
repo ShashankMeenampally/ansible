@@ -1,0 +1,29 @@
+---
+- name: Uninstall splunk in server
+  yum:
+    name: splunkforwarder
+    state: absent
+
+- name: Remove /opt/splunkforwarder
+  command: rm -rf /opt/splunkforwarder
+
+#- name: Create splunk user
+#  user:
+#    name: splunk
+#    shell: /bin/bash
+#    expires: -1
+#    uid: 2003
+#
+#- name: copy the rpm package
+#  copy:
+#    src: splunkforwarder-7.2.3-06d57c595b80.x86_64.rpm
+#    dest: /tmp/splunkforwarder-7.2.3-06d57c595b80.x86_64.rpm
+#
+#- name: Install Splunk
+#  command: yum install /tmp/splunkforwarder-7.2.3-06d57c595b80.x86_64.rpm -y
+#
+
+#- name: Accept licence using Splunk user
+#  command: /opt/splunkforwarder/bin/splunk set deploy-poll workstation:8089  --accept-license --answer-yes  --no-prompt  owner=splunk
+  
+

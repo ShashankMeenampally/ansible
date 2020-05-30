@@ -1,0 +1,16 @@
+---
+- name: 
+  hosts:  all
+  roles:
+    - rhel-system-roles.timesync
+  vars:
+    timesync_ntp_servers: 
+      - hostname: 192.168.80.80
+        iburst: yes
+    timesync_ntp_provider: chrony
+    zone: Asia/Kolkata
+  tasks:
+    - name: Set zone
+      timezone:
+        name: "{{zone}}"
+

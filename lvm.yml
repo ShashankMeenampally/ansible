@@ -1,0 +1,25 @@
+---
+- name:
+  hosts: all
+  ignore_errors: yes
+  tasks:
+    - name:
+      lvol:
+        vg: research
+        lv: data
+        size: 1.5G
+    - debug:
+        msg: Unable to create lv due to insufficent space "{{ansible_lvm.vgs.research.size_g}}"
+    - name: File system formating
+      filesystem:
+       fstype: ext4
+       dev: /dev/mapper/research-data
+
+
+    - name: 
+      lvol:
+        vg: research
+        lv: data
+        size: 800M
+    - debug:
+        msg: LV Can not be created with following size 1.5G "{{ansible_lvm.vgs.research.size_g}}"

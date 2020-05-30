@@ -1,0 +1,69 @@
+---
+- name:
+  hosts: all
+#  roles:
+#   - splunkforwarder
+  tasks:
+     - name: Removing duplicate line if exist in /etc/rsyslog.conf
+       lineinfile:
+        dest: /etc/rsyslog.conf
+        backup: no
+        regexp: "{{item}}"
+        state: absent
+       loop:
+        - "/var/log/secure"
+        - "The authpriv file has restricted access"
+        - "# Set permissions and group ownership of /var/log/secure so splunk can read"
+        - "FileCreateMode 0640"
+        - "FileGroup splunk"
+        - "# Set permissions and group ownership back to default"
+        - "FileCreateMode 0600"
+        - "FileGroup root"
+     - name: Grant group owner permissions to /var/log/sec
+       command: chown root:splunk /var/log/secure
+       command: chmod 0640 /var/log/secure
+       args:
+        warn: false
+
+     - name: Now inserting the required line in /etc/rsyslog.conf
+       blockinfile:
+         path: /etc/rsyslog.conf
+         insertafter: 'local7.*'
+         state: present
+         backup: yes
+         content: |
+          # Set permissions and group ownership of /var/log/secure so splunk can read
+          $FileCreateMode 0640
+          $FileGroup splunk
+
+          # The authpriv file has restricted access.
+          authpriv.*                                              /var/log/secure
+
+          # Set permissions and group ownership back to default
+          $FileCreateMode 0600
+          $FileGroup root
+     - name:
+       blockinfile:
+        path: /opt/splunkforwarder/etc/system/local/deploymentclient.conf
+        backup: yes
+        content: |
+         [target-broker:deploymentServer]
+         targetUri = 10.59.25.41:8089
+     - name: Restart rsyslog and splunk service
+       service:
+         name: "{{item}}"
+         state: restarted
+       when: ansible_distribution_major_version|int == 6
+       loop:
+        - network
+        - rsyslog
+     - name: Restart rsyslog and splunk service
+       service:
+         name: "{{item}}"
+         state: restarted
+       when: ansible_distribution_major_version|int >= 7
+       loop:
+        - network 
+        - rsyslog
+ #      notify: restart rsyslog
+ #      notify: splunkforwarder restart

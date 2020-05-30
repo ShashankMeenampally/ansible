@@ -1,0 +1,5 @@
+---
+- src: ftp://192.168.80.166/role1.tar.gz
+  name: balancer
+- src: ftp://192.168.80.166/role2.tar.gz
+  name: phphello

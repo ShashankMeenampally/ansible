@@ -1,0 +1,22 @@
+---
+- name:
+  hosts:  all
+  vars_files:
+    - vault.yml
+    - user_list.yml
+  tasks:
+    - name: Create groups
+      group:
+        name: "{{item}}"
+        state: present
+      loop:
+        - opsmgr
+        - devops
+    - name: Creat user
+      user:
+        name: "{{item.name}}"
+        state: present
+        groups: opsmgr
+      loop: "{{user}}"
+      when: (inventory_hostname in groups['dev'] or inventory_hostname in groups['test']) and item.job == "developer"
+      

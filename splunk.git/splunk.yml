@@ -1,0 +1,8 @@
+---
+- name:
+  hosts: local
+#- roles:
+#   - splunk
+  tasks:
+- import_playbook: ./tasks/main.yml
+

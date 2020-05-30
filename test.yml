@@ -1,0 +1,11 @@
+---
+- name:
+  hosts: servera
+  gather_facts: true
+  tasks:
+    - name:
+      service:
+        name:   network
+        state: restarted
+    when: "'splunkforwarder' in ansible_facts.packages"
+...

@@ -1,0 +1,14 @@
+---
+- name:
+  hosts: servera
+  tasks:
+   - name: create use if not exist
+     user:
+      state: present
+      name: test
+      uid: 1004
+      groups: admin
+      shell: /bin/bash
+     register: user is created
+   - debug:
+      msg: "result"

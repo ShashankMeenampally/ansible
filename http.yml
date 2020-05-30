@@ -1,0 +1,16 @@
+---
+- hosts: servera
+  gather_facts: yes
+  tasks:
+  - name: starting httpd
+    service: name=httpd state=restarted enabled=yes
+ 
+  - name: httpd status
+    command: service httpd status
+    register: httpd_status  
+  
+  - name: httpd status output
+    debug:
+      var: httpd_status
+
+ 

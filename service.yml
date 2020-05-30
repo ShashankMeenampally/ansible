@@ -1,0 +1,20 @@
+---
+- name:
+  hosts: servera
+  tasks:
+    - name: Gather package facts
+      package_facts:
+       manager: auto
+    - name:
+      service:
+       name: network
+       state: restarted
+      when: "'splunkforwarder'not in ansible_facts.packages.splunkforwarder"
+
+    - name: Fail message
+      fail:
+       msg: "splunk not installed"
+      when: "'splunkforwarder' not in ansible_facts.packages.splunkforwarder"
+    
+
+      

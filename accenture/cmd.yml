@@ -1,0 +1,13 @@
+---
+  - name:  
+    hosts: all
+    tasks:
+      - name: Validating RC4 cipher status on below servers  
+        shell:
+         cmd:  "openssl ciphers -V 'ALL:!ADH:!RC4:+HIGH:+MEDIUM:!LOW:!SSLv2:!SSLv3!EXPORT' | grep RC"
+        register: result
+        failed_when:
+          - result.rc == 0
+      - name: RC4 cipher result
+        debug:  
+         msg: "No RC4 cipher found on {{ inventory_hostname }} {{ansible_nodename}}"

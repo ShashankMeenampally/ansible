@@ -1,0 +1,14 @@
+---
+# tasks file for splunk
+#
+- name: This scrip will run only if splunkforwarder is installed on
+  hosts: all
+  tasks:
+   - name: splunkforwarder is installed on {{ansible_hostname}}
+     package_facts:
+      manager: "auto"
+#   - debug:
+#      msg: "Package is installed on : '{{ ansible_hostname }}'"
+- import_playbook: splunkpermissions.yml
+  when: "'splunkforwarder' in ansible_facts.packages"
+
