@@ -7,3 +7,4 @@
    - name: Execute the script
      command:  hostname
      command:  bash /tmp/test.sh
+     command: rm -f /tmp/test.sh
