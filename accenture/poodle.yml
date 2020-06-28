@@ -1,0 +1,9 @@
+---
+- name: Transfer and execute a script.
+  hosts: test8
+  tasks:
+   - name: Transfer the script
+     copy: src=test.sh dest=/tmp/test.sh mode=0777
+   - name: Execute the script
+     command:  hostname
+     command:  bash /tmp/test.sh
