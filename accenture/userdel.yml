@@ -1,0 +1,16 @@
+---
+- name: usersdeletion 
+  hosts: test8
+  tasks:
+  - name: 
+    user:
+     name: "{{ item }}"
+     state: absent
+     remove: yes
+    loop:
+     - test1
+     - test2
+     - test3
+     - test4
+     - test5
+
