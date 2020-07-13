@@ -1,6 +1,6 @@
 ---
 - name:
-  hosts: servera
+  hosts: test8
   tasks:
   - name: Gather Online user info
      online_user_info:
