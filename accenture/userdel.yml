@@ -1,16 +1,11 @@
 ---
 - name: usersdeletion 
   hosts: test8
+  vars_files:
+   - users
   tasks:
-  - name: 
-    user:
-     name: "{{ item }}"
-     state: absent
-     remove: yes
-    loop:
-     - test1
-     - test2
-     - test3
-     - test4
-     - test5
-
+  - user: 
+      name: "{{ item.name }}"
+      state: absent
+      remove: yes
+    with_items: "{{ user_details }}"
