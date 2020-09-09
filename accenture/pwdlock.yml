@@ -1,0 +1,13 @@
+---
+- hosts: dev
+  tasks:
+    - name:
+      user:
+        name: "{{ item }}" 
+        password_lock: yes
+      loop:
+        - u1
+        - u2
+        - u3
+        - u4 
+        - test
