@@ -5,8 +5,7 @@ servera
 serverb
 
 [prod]
-serverc
-serverd
+servera
 
 [balancers]
 servere
@@ -19,3 +18,4 @@ serverd
 server3
 test8
 workstation
+

@@ -1,0 +1,40 @@
+---
+- hosts: prod 
+  tasks:
+
+   - name: Health status of {{ ansible_hostname }}
+     shell: /usr/bin/uptime
+     register: result
+   - debug: 
+      msg: "########### Uptime is {{ result.stdout }}"
+
+   - name: Print Average memory if usage is more than 90%
+     shell: sar -r | grep Average | awk '$5 >= 90 {print $5}'
+     register: mem
+   - debug: 
+      msg: "########### {{ mem.stdout }} "
+   
+   - name: Print Average I/O wait if usage is more than 50% 
+     shell: sar -b | grep Average | awk '$2 >= 50 {print $2}'
+     register: io
+   - debug:
+      msg: "########### {{ io.stdout }}"
+   
+   - name: Print Average user CPU process consuming more than 80% 
+     shell: sar -p | grep Average | awk '$3 >= 0 {print $3}'
+     register: cpu
+   - debug: 
+      msg: "###########  {{ cpu.stdout }}"
+
+
+   - name: Print Average System CPU process consuming more that 80%
+     shell: sar -p | grep Average | awk '$5 >= 0 {print $5}'
+     register: cpu
+   - debug: 
+      msg: "###########  {{ cpu.stdout }}"
+
+   - name: Print if any FS is more that 90% exceeded
+     shell: df -P | awk '0+$5 >= 90 {print}'
+     register: fs
+   - debug:
+      msg: "########### {{ fs.stdout }}"
