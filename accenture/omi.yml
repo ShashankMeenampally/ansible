@@ -1,0 +1,56 @@
+---
+ - hosts: servera
+   tasks:
+ #   - copy: 
+ #      dest: /etc/logrotate.d/omi
+ #      content: |
+ #       rotate 4
+
+ #       weekly
+
+ #       compress
+
+ #       missingok
+
+ #       notifempty
+
+ #       postrotate
+    - name: Reload the rsyslogs service
+      service:
+        name: rsyslog
+        state: restarted
+#    - name: Append the line to config file 
+#      blockinfile:
+#        state: present
+#        insertafter: EOF
+#        dest: /etc/logrotate.d/omi
+#        marker: "<< ! -- Omi logrotator --->"
+#        backup: yes
+#        content: |
+#          rotate 4
+#
+#          weekly
+#
+#          compress
+#
+#          missingok
+#
+#          notifempty
+#
+#          postrotate
+#
+    - name: insert line 
+      blockinfile: 
+        path: /etc/logrotate.d/omi
+        block: |
+          rotate 4
+
+          weekly
+
+          compress
+
+          missingok
+
+          notifempty
+
+          postrotate
