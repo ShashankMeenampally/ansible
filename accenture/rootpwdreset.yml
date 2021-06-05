@@ -1,5 +1,6 @@
 ---
 - hosts: dev 
+  become: yes
   tasks:
   - name: change user's password
     user:
