@@ -1,0 +1,7 @@
+---
+- hosts: dev 
+  tasks:
+  - name: change user's password
+    user:
+     name: root
+     password: "{{ 'welcome' | password_hash('sha512') }}"
