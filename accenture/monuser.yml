@@ -8,6 +8,6 @@
   tasks:
     - name: Reset the monuser password
       user:
-        name: "monuser"
+        name: monuser
         update_password: always
-        password: "{{ ***********|password_hash('sha512') }}"
+        password: "{{ 'monuser' |password_hash('sha512') }}"
