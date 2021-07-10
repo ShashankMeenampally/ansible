@@ -5,9 +5,11 @@
     - name: Check hostname is correct
       debug: msg="{{ ansible_hostname|lower }} equals {{ inventory_hostname }}"
       failed_when: "ansible_hostname|lower != inventory_hostname"
+  vars:
+   password: '$6$ba0KVdN1kQl.8IjQ$ag6E/znIWH7UJHK4MFh/8EX3yPkNiDCqJXz0WL3XZ2kD.ytqqPFyeXNBnDDNh2be96r4yJBuM5CsjtpRsOj.2.'
   tasks:
     - name: Reset the monuser password
       user:
         name: monuser
         update_password: always
-        password: "{{ 'monuser' |password_hash('sha512') }}"
+        password: $6$5EspWx8FqkeRC6Ce$nywQXflRhPTHw9WnxLhVae6OjrwBqjxEkpnPjAo9ncfZrPsPaQJEqxqP3p745TCWYpEjz7jwNG4Jgn79r0pda1 

@@ -1,0 +1,17 @@
+---
+- hosts: all
+  become: true
+  pre_tasks:
+    - name: Check hostname is correct
+      debug: msg="{{ ansible_hostname|lower }} equals {{ inventory_hostname }}"
+      failed_when: "ansible_hostname|lower != inventory_hostname"
+  tasks:
+    - name: Check non_login user exist.
+      stat: path=/etc/profile.d/non-login.sh
+      register: result
+    - name: Disable non_login local users 
+      command: mv /etc/profile.d/non-login.sh /var/tmp/non-login.sh
+      when: result.stat.exists
+    - debug:
+        msg=" No local users login shell disable on :{{ansible_hostname }}"
+      when: result.stat.exists == false
